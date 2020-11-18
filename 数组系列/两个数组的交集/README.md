@@ -58,3 +58,32 @@ func intersect(array1, array2 []int) {
 	fmt.Println(array2[0:k])
 }
 ```
+## 三、题目进阶
+> 题目在进阶问题中问道：如果给定的数组已经排好序呢？你将如何优化你的算法？我们分析一下，假如两个数组都是有序的，分别为：arr1 = [1,2,3,4,4,13]，arr2 = [1,2,3,9,10]
+### 3.1 思路
+3.1.1 将数字都平铺排列好并将数组进行排序
+```
+1 2 3 4 4 13
+1 2 3 9 10
+```
+3.1.2 然后从第0位开始进行对比,如果两个指针的元素不相等，我们将小的一个指针后移。
+```go
+func intersect(array1, array2 []int) {
+	i, j, k := 0, 0, 0
+	sort.Ints(array1)
+	sort.Ints(array2)
+	for i < len(array1) && j < len(array2) {
+		if array1[i] < array2[j] {
+			j++
+		} else if array1[i] > array2[j] {
+			i++
+		} else {
+			array1[k] = array1[i]
+			i++
+			j++
+			k++
+		}
+	}
+	fmt.Println(array1[:k])
+}
+```
