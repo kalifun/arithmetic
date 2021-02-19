@@ -46,7 +46,22 @@ func twosum(nums []int, target int) []int {
 }
 ```  
  
-1. 首先，我们还是先遍历数组 nums，i 为当前下标。我们需要将每一个遍历的值放入 map 中作为 key。
+1. 首先，我们还是先遍历数组 nums，i 为当前下标。我们需要将每一个遍历的值放入 map 中作为 key。 
 2. 同时，对每个值都判断 map 中是否存在 target-nums[i] 的 key 值。在这里就是 9-7=2。我们可以看到 2 在 map 中已经存在。
 3. 所以，2 和 7 所在的 key 对应的 value，也就是 [0,1]。就是我们要找的两个数组下标。  
-4. 
+
+```golang
+func twosum(nums []int, target int) []int {
+	result := []int{}
+	m := make(map[int]int)
+	for i, k := range nums {
+		if value, exist := m[target-k]; exist {
+			result = append(result, value)
+			result = append(result, i)
+		}
+		m[k] = i
+		fmt.Println(m)
+	}
+	return result
+}
+```
